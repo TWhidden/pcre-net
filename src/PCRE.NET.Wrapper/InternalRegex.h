@@ -50,7 +50,18 @@ namespace PCRE {
 			initonly System::Collections::Generic::Dictionary<System::String^, array<int>^>^ _captureNames;
 			System::Collections::Generic::IList<CalloutInfo^>^ _callouts;
 			System::Collections::Generic::Dictionary<int, CalloutInfo^>^ _calloutInfoByPatternPosition;
-			template<typename T> T InternalRegex::GetInfo(InfoKey key);
+			
+			template<typename T>
+			T __clrcall GetInfo(InfoKey key)
+			{
+				T result;
+				int errorCode = pcre2_pattern_info(_re, static_cast<int>(key), &result);
+
+				if (errorCode)
+					throw gcnew System::InvalidOperationException("Gahhh");
+
+				return result;
+			}
 		};
 	}
 }

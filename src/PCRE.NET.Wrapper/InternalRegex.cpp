@@ -176,17 +176,7 @@ static void __clrcall AfterMatch(MatchData^ matchData)
 	}
 }
 
-template<typename T>
-T __clrcall InternalRegex::GetInfo(InfoKey key)
-{
-	T result;
-	int errorCode = pcre2_pattern_info(_re, static_cast<int>(key), &result);
 
-	if (errorCode)
-		throw gcnew InvalidOperationException(String::Format("Error in pcre2_pattern_info: {0}", GetPcreErrorMessage(errorCode)));
-
-	return result;
-}
 
 System::Collections::Generic::IList<CalloutInfo^>^ InternalRegex::Callouts::get()
 {
